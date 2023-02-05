@@ -1,20 +1,21 @@
 # compiler
-CC = gcc
+CC := gcc
+RUNSTATEDIR ?= /var/run
+PKG_CONFIG ?= pkg-config
+PREFIX ?= /usr
+DESTDIR ?= bin
+SYSCONFDIR ?= /etc
+CFLAGS ?= -O3
+CFLAGS += -std=gnu99 -D_GNU_SOURCE
+CFLAGS += -g -Wall -Wextra
+CFLAGS += -MMD -MP
+CFLAGS += -DRUNSTATEDIR="\"$(RUNSTATEDIR)\""
 
-# compiler flags:
-#  -g    adds debugging information to the executable file
-#  -Wall turns on most, but not all, compiler warnings
-CFLAGS = -g -Wall
-
-# output name & dir
-TARGET = fish
-OUTPUT_DIR = ./bin
-
-# space seperated list of c source files
-SRCS = main.c
+TARGET := c-template 
+SRCS := main.c
 
 build:  
-	$(CC) $(CFLAGS) -o $(OUTPUT_DIR)/$(TARGET) $(SRCS)
+	$(CC) $(CFLAGS) -o $(DESTDIR)/$(TARGET) $(SRCS)
 
 run:
 	$(OUTPUT_DIR)/$(TARGET)
